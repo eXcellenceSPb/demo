@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script language="JavaScript" th:src="@{../call.js}" type="text/javascript"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Calls</title>
+</head>
+<body>
+<div class="container-fluid well">
+    <form th:action="@{/calls/datepicker}" method="POST">
+        <div class="col-xs-5">
+            <div class="row">
+                <label class="col-xs-12">Дата: </label>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <input name="startDate" class="form-control" type="date" id="dateFrom" placeholder="От"/>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <input name="endDate" class="form-control" type="date" id="dateTo" placeholder="До"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3 offset-4">
+            <label class="control-label" for="status">Направление: </label>
+            <select name="dir" class="form-control" id="status" size="1">
+                <option>Input</option>
+                <option>Output</option>
+            </select>
+        </div>
+        <div class="container-fluid" align="right">
+            <br>
+            <input type="submit" value="Фильтр" class="btn btn-info filtration-button"/>
+        </div>
+    </form>
+    <br>
+    <input class="form-control " id="myInput" type="text" placeholder="Поиск..">
+    <br>
+    <output id="count"></output>
+    <br>
+    <div th:if="${not #lists.isEmpty(call)}">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Направление</th>
+                    <th>Номер</th>
+                    <th>Абонент</th>
+                    <th>Дата</th>
+                    <th>Коммент</th>
+                </tr>
+                </thead>
+                <tbody id="myTable2">
+                <tr th:each="call : ${call}">
+                    <td class="mid" th:text="${call.id}"></td>
+                    <td class="mdir" th:text="${call.direction}"></td>
+                    <td class="mnum" th:text="${call.number}"></td>
+                    <td class="mabon" th:text="${call.abonent}"></td>
+                    <td class="mdate" th:text="${#dates.format(call.date, 'dd/MM/yyyy')}"></td>
+                    <td class="mcom" th:text="${call.comment}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div align="right" class="container-fluid">
+        <a th:href="${'/calls'}" class="btn btn-info">Все вызовы</a>
+        <a th:href="${'/'}" class="btn btn-warning">Выбор оператора</a>
+    </div>
+</div>
+</body>
+</html>

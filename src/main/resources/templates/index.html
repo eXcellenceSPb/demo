@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script language="JavaScript" th:src="@{../oper.js}" type="text/javascript"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Calls</title>
+</head>
+<body>
+<div class="container-fluid well">
+    <input class="form-control " id="myInput" type="text" placeholder="Поиск..">
+    <br>
+    <div th:if="${not #lists.isEmpty(operators)}">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Оператор</th>
+                    <th colspan=2>Вызовы</th>
+                </tr>
+                </thead>
+                <tbody id="myTable2">
+                <tr th:each="operators : ${operators}">
+                    <td class="mid" th:text="${operators.id}"></td>
+                    <td class="mname" th:text="${operators.names}"></td>
+                    <td><a th:href="${'/op/' + operators.id}"
+                           class="btn btn-info">Показать список</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
